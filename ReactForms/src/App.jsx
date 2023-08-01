@@ -5,15 +5,12 @@ import Authenticate from './components/Authenticate'
 
 const App = () => {
   return (
-    <>   
+    <>
+   
     <SignUpForm/>
-    <Authenticate/>
+     <Authenticate/>
     </>
     );
 }
  
 export default App;
-<>
-<Authenticate/>
-
-</>
