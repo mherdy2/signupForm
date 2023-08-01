@@ -9,13 +9,29 @@ const SignUpForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent page refresh
 
-    console.log("Form submitted!"); // Log a short message
-    // form submission logic here
+    try {
+      const response = await fetch("https://fsa-jwt-practice.herokuapp.com/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+
+      const data = await response.json(); // Parse the response body as JSON
+      console.log(data); // Log the API response
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
     <div>
       <h2 className="sign">Sign Up</h2>
+      {error && <p>{error}</p>}
       <form className="sign-up-form" onSubmit={handleSubmit}>
         <label>
           Username:
@@ -23,9 +39,9 @@ const SignUpForm = () => {
         </label>
         <label>
           Password:
-          <input value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
-        <button onClick={handleSubmit}>Sign Up</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );
